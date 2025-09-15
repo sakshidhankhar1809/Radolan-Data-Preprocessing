@@ -23,73 +23,6 @@ BASE_URL = "https://opendata.dwd.de/climate_environment/CDC/grids_germany/5_minu
 dim_x = 1100
 dim_y = 900
 
-
-###############################################################################
-
-# def download(url, destination_path):
-#     """
-#     This function Downloads the radolan data and store on the specified path
-#     params:
-#         url: str
-#         destination_path: str
-#     """
-#     if not os.path.exists(destination_path):
-#         os.makedirs(destination_path)
-    
-#     filename = url.split('/')[-1].replace(" ", "_")
-#     file_path = os.path.join(destination_path, filename)
-#     r = requests.get(url, file_path)
-#     if r.ok:
-#         print("saving to: ",os.path.abspath(file_path))
-#         with open(file_path, 'wb') as f:
-#             for chunk in r.iter_content(chunk_size=1024*8):
-#                 if chunk:
-#                     f.write(chunk)
-#                     f.flush()
-#                     os.fsync(f.fileno())
-#     else:
-#         print("Error occured", r.status_code, r.text)
-
-
-# def fetch_from_dwd(start_year, end_year):
-#     """
-#     This function will fetch the data for the desired year.
-#     params:
-#         year: int
-#     """
-#     for year in range(start_year, end_year+1):
-#         base_dir = os.path.join(os.getcwd(), "data", f"{str(year)}/")
-#         if not os.path.exists(base_dir):
-#             os.makedirs(base_dir)
-#         for i in range(1,13):
-#             file_name = f"YW2017.002_{year}" + f"{i:02}" + "_asc.tar"
-#             url = BASE_URL + str(year) + "/" + file_name 
-#             # url = urljoin(BASE_URL, str(year), file_name)
-#             month_path = os.path.join(base_dir, str(i))
-#             if not os.path.exists(month_path):
-#                 os.makedirs(month_path)
-            
-#             download(url, month_path)
-            
-#             # Extracting the .tar files includeing each days of a month
-#             tar_path = os.path.join(month_path, file_name)
-
-#             with tarfile.open(tar_path, 'r') as tar:
-#                 tar.extractall(path=month_path)
-#             print(f"deleting {file_name}")
-#             os.remove(tar_path)
-                
-#             # Extracting the ".tar.gz" files for each day
-#             for i, dirname in enumerate(os.listdir(month_path)):
-#                 gz_dir = os.path.join(month_path, str(i+1))
-#                 if not os.path.exists(gz_dir):
-#                     os.makedirs(gz_dir)
-#                     gz_path = os.path.join(month_path, dirname)
-#                 with tarfile.open(gz_path, 'r:gz') as gz_tar:
-#                     gz_tar.extractall(path=gz_dir)
-#                 os.remove(gz_path)
-
-
 def check_supplement(year, month, day, hh, MM):
     """
     This function checks if the current date and time is a missed timestampt
@@ -187,26 +120,6 @@ def fetch_and_process(year, base_url, mask_idx, save_path, resolution=5, save=No
     # year_df.to_hdf(os.path.join(base_dir, f'{year}_hdf.h5'), key=f'{year}_df', mode='w')
     return year_data_np
 
-# def process_file(file_path, mask_idx, save_path):
-#     """
-#     Function to process each file.
-#     It loads, masks, and saves the processed data.
-#     """
-#     data = np.loadtxt(file_path, skiprows=6)
-#     data = data[mask_idx[0, 0]:mask_idx[1, 0], mask_idx[0, 1]:mask_idx[1, 1]]
-#     os.remove(file_path)
-#     np.savez_compressed(save_path, data=data)
-
-
-# def process_folder(folder_path, mask_idx):
-#     """
-#     Function to process all files within a folder sequentially.
-#     """
-#     files = [os.path.join(folder_path, file) for file in sorted(os.listdir(folder_path))]
-#     for file_path in files:
-#         process_file(file_path, mask_idx)
-
-
 def save_df(index, PATH):
     if not os.path.exists(PATH): 
         raise FileNotFoundError(f"{PATH} dose not exist!")
@@ -226,8 +139,6 @@ def save_df(index, PATH):
     with h5py.File(PATH + 'total_file.h5', 'w') as hdf:
         hdf.create_dataset('total_data', data=final_df, compression='gzip')
                     
-
-
 def crop_region(start_year, end_year, latlon, mask_height, mask_width, city_name, resolution, save_path, save=None):
     start = time.time()
     if not isinstance(start_year, int) or not isinstance(end_year, int):
@@ -361,7 +272,6 @@ class preProcess:
         j_start = max(center_points[1] - self.mask_heigth, 0)
         j_end = min(center_points[1] + self.mask_heigth + 1, self.y_shape)
 
-        # masked_region = data[i_start:i_end, j_start:j_end]
         self.mask_idx = np.array([[i_start, j_start],
                          [i_end, j_end]])
         
@@ -388,19 +298,3 @@ class preProcess:
 
         plt.legend()
         plt.show()
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
