@@ -1,5 +1,5 @@
 # Data preprocessing for RADOLAN Images
-This repository provides preprocessing tools for working with DWD’s radar precipitation images. It focuses on transforming the raw radar data into structured, region-specific datasets that can be directly used for analysis or modeling.
+This repository provides preprocessing tools for working with DWD’s radar precipitation images. It focuses on transforming the raw radar data into structured, region-specific datasets that can be directly used for analysis or modeling. This repository is a part of the preprocessing module used in the paper: https://doi.org/10.1016/j.ejrh.2025.102571.
 
 ## Key Features
 ### Geographical coordinate conversion
@@ -48,3 +48,4 @@ h.plot_mask(data)
 ```
 
 ![alt text](hildesheim_mask.png)
+
