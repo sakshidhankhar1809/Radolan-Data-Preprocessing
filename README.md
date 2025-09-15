@@ -2,13 +2,11 @@
 This repository provides preprocessing tools for working with DWD’s radar precipitation images. It focuses on transforming the raw radar data into structured, region-specific datasets that can be directly used for analysis or modeling. This repository is a part of the preprocessing module used in the paper: https://doi.org/10.1016/j.ejrh.2025.102571.
 
 ## Key Features
-### Geographical coordinate conversion
+#### Geographical coordinate conversion
 Converts latitude and longitude values into the radar image’s coordinate system, ensuring precise mapping between geographic locations and pixel indices.
-
-### Pixel index calculation
+#### Pixel index calculation
 Determines the exact pixel positions (with a resolution of 1 km × 1 km per pixel) that correspond to given geographic coordinates.
-
-### Regional cropping
+#### Regional cropping
 Extracts precipitation data for a specified region by cropping radar images according to the target area’s bounding box or shape. This makes it possible to isolate rainfall information for cities, watersheds, or custom-defined areas of interest.
 
 ## Output
@@ -48,4 +46,5 @@ h.plot_mask(data)
 ```
 
 ![alt text](hildesheim_mask.png)
+
 
