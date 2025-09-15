@@ -1,13 +1,32 @@
-# trinkxtrem_extention
+# Data preprocessing for RADOLAN Images
+This repository provides preprocessing tools for working with DWD’s radar precipitation images. It focuses on transforming the raw radar data into structured, region-specific datasets that can be directly used for analysis or modeling.
 
-This is the repository for the extention of TrinkXtrem project.
+## Key Features
+### Geographical coordinate conversion
+Converts latitude and longitude values into the radar image’s coordinate system, ensuring precise mapping between geographic locations and pixel indices.
+
+### Pixel index calculation
+Determines the exact pixel positions (with a resolution of 1 km × 1 km per pixel) that correspond to given geographic coordinates.
+
+### Regional cropping
+Extracts precipitation data for a specified region by cropping radar images according to the target area’s bounding box or shape. This makes it possible to isolate rainfall information for cities, watersheds, or custom-defined areas of interest.
+
+## Output
+The preprocessing pipeline produces CSV files where each entry corresponds to precipitation intensity values represented as pixels. The CSVs preserve the spatial structure of the radar image subset, effectively turning raw radar data into a grid of precipitation values for the selected region.
+
+## Use Case
+This workflow is particularly useful for:
+1. Hydrological modeling
+2. Weather and climate research
+3. Flood risk assessment
+4. Training machine learning models on localized precipitation data
 
 ## Instalation
 To install and setup:
 1. Clone the repository:
 ```bash
-git clone git@gitlab.tu-clausthal.de:ma64/trinkxtrem_extention.git
-cd trinkxtrem_extension
+git git@github.com:sakshidhankhar1809/Radolan-Data-Preprocessing.git
+cd Radolan-Data-Preprocessing
 ```
 2. create a new virtual environment and install the dependencies:
 ```bash
@@ -27,4 +46,5 @@ by using `mask_region()` method, the indices for the target location can be achi
 mask_idx = h.mask_region()
 h.plot_mask(data)
 ```
+
 ![alt text](hildesheim_mask.png)
